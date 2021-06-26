@@ -64,4 +64,5 @@ typings/
 *.tsbuildinfo
 
 .npm-cache
-.docker/elasticdata/**
+.docker/elasticdata
+.history/

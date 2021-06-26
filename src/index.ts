@@ -1,3 +1,4 @@
+import './bootstrap';
 import {ApplicationConfig, CodeMicroCatalogApplication} from './application';
 
 export * from './application';
