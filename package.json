@@ -55,16 +55,19 @@
     "@loopback/rest": "^9.3.1",
     "@loopback/rest-explorer": "^3.3.1",
     "@loopback/service-proxy": "^3.2.1",
+    "dotenv": "^10.0.0",
+    "loopback-connector-es": "^1.4.1",
+    "loopback-connector-esv6": "https://github.com/codeedu/loopback-connector-elastic-search/tarball/master",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@loopback/build": "^6.4.1",
-    "source-map-support": "^0.5.19",
+    "@loopback/eslint-config": "^10.2.1",
     "@loopback/testlab": "^3.4.1",
     "@types/node": "^10.17.60",
-    "@loopback/eslint-config": "^10.2.1",
-    "eslint": "^7.28.0",
-    "typescript": "~4.3.2"
+    "eslint": "^7.29.0",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.3.4"
   },
   "nodemonConfig": {
     "verbose": true,
