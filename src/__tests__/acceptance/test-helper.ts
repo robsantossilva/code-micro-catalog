@@ -1,9 +1,9 @@
-import {CodeMicroCatalogApplication} from '../..';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
-  createRestAppClient,
-  givenHttpServerConfig,
-  Client,
+  Client, createRestAppClient,
+  givenHttpServerConfig
 } from '@loopback/testlab';
+import {CodeMicroCatalogApplication} from '../..';
 
 export async function setupApplication(): Promise<AppWithClient> {
   const restConfig = givenHttpServerConfig({
@@ -21,6 +21,7 @@ export async function setupApplication(): Promise<AppWithClient> {
   await app.boot();
   await app.start();
 
+  // @ts-ignore
   const client = createRestAppClient(app);
 
   return {app, client};

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import datasource from './esv7.datasource.config.json';
 
 export default {
@@ -16,6 +17,29 @@ export default {
 
   },
   mappingProperties: {
-
+    docType: {
+      type: 'keyword',
+    },
+    id: {
+      type: 'keyword',
+    },
+    name: {
+      type: 'text',
+      fields: {
+        keyword: {
+          type: 'keyword',
+          ignore_above: 256
+        },
+      },
+    },
+    description: {
+      type: 'text',
+    },
+    created_at: {
+      type: 'date',
+    },
+    updated_at: {
+      type: 'date',
+    },
   },
 };
