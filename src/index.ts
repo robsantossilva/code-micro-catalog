@@ -34,6 +34,13 @@ if (require.main === module) {
         setServersFromRequest: true,
       },
     },
+    rabbitmq: {
+      uri: process.env.RABBITMQ_URI,
+      exchanges: [
+        {name:'teste1', type:'direct'},
+        {name:'teste2', type:'direct'}
+      ]
+    }
   };
   main(config).catch(err => {
     console.error('Cannot start the application.', err);
