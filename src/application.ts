@@ -5,9 +5,10 @@ import {RestComponent, RestServer} from '@loopback/rest';
 import {RestExplorerBindings} from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
-import {RestExplorerComponent} from './components';
+import {RestExplorerComponent, ValidatorsComponent} from './components';
 import {MySequence} from './sequence';
 import {RabbitmqServer} from './servers';
+
 
 export {ApplicationConfig};
 
@@ -19,6 +20,7 @@ export class CodeMicroCatalogApplication extends BootMixin(
 
     options.rest.sequence = MySequence;
     this.component(RestComponent);
+    this.component(ValidatorsComponent);
     const restServer = this.getSync<RestServer>('servers.RestServer');
     restServer.static('/', path.join(__dirname, '../public'));
 
@@ -39,7 +41,53 @@ export class CodeMicroCatalogApplication extends BootMixin(
       },
     };
 
-    this.server(RabbitmqServer)
+    this.server(RabbitmqServer);
+  }
+
+  async boot(){
+    await super.boot();
+
+    //const validator = this.getSync<ValidatorService>('services.ValidatorService');
+
+
+    // try {
+    //   await validator.validate({
+    //     data:{
+    //       id: '1-cat'
+    //     },
+    //     entityClass: Category
+    //   });
+    // } catch (error) {
+    //   console.dir(error, {depth:10});
+    // }
+
+    // try {
+    //   await validator.validate({
+    //     data:{},
+    //     entityClass: Category
+    //   });
+    // } catch (error) {
+    //   console.dir(error, {depth:10});
+    // }
+
+    // try {
+    //   await validator.validate({
+    //     data:{},
+    //     entityClass: Genre
+    //   });
+    // } catch (error) {
+    //   console.dir(error, {depth:10});
+    // }
+
+    // try {
+    //   await validator.validate({
+    //     data:{},
+    //     entityClass: CastMember
+    //   });
+    // } catch (error) {
+    //   console.dir(error, {depth:10});
+    // }
 
   }
+
 }

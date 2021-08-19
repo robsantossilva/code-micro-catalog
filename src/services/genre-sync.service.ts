@@ -1,38 +1,31 @@
-import {bind, /* inject, */ BindingScope} from '@loopback/core';
+import {bind, /* inject, */ BindingScope, service} from '@loopback/core';
 import {repository} from '@loopback/repository';
 import {rabbitmqSubscribe} from '../decorators';
 import {GenreRepository} from '../repositories';
+import {BaseModelSyncService} from './base-model-sync.service';
+import {ValidatorService} from './validator.service';
 
-@bind({scope: BindingScope.TRANSIENT})
-export class GenreSyncService {
+@bind({scope: BindingScope.SINGLETON})
+export class GenreSyncService extends BaseModelSyncService{
   constructor(
-    @repository(GenreRepository) private genreRepo: GenreRepository,
-  ) {}
+    @repository(GenreRepository) private repo: GenreRepository,
+    @service(ValidatorService) private validator: ValidatorService
+  ) {
+    super(validator);
+  }
 
   @rabbitmqSubscribe({
     exchange:'amq.topic',
-    queue: 'micro-catalog/genre-sync',
+    queue: 'micro-catalog/sync-videos/genre',
     routingKey:'model.genre.*'
   })
   async handle({data, message}:{data:any, message:any}){
 
-    if(Object.prototype.hasOwnProperty.call(data, 'description')){
-      delete data.description;
-    }
+    await this.sync({
+      repo: this.repo,
+      data: data,
+      message: message
+    });
 
-    const [model, event] = message.fields.routingKey.split('.').slice(1);
-    if(model === 'genre'){
-      switch(event){
-        case 'created':
-          await this.genreRepo.create(data);
-          break;
-        case 'updated':
-          await this.genreRepo.updateById(data.id, data);
-          break;
-        case 'deleted':
-          await this.genreRepo.deleteById(data.id);
-          break;
-      }
-    }
   }
 }
