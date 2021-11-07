@@ -69,18 +69,18 @@ export class PingController {
     };
   }
 
-  @get('/categories')
-  async index(){
-    await this.categoryRepo.create({
-      id: (new Date()).getTime().toString(),
-      name:"Cateroria Teste",
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      created_at: (new Date()).toString(),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      updated_at: (new Date()).toString()
-    });
-    return this.categoryRepo.find();
-  }
+  // @get('/categories')
+  // async index(){
+  //   await this.categoryRepo.create({
+  //     id: (new Date()).getTime().toString(),
+  //     name:"Cateroria Teste",
+  //     // eslint-disable-next-line @typescript-eslint/naming-convention
+  //     created_at: (new Date()).toString(),
+  //     // eslint-disable-next-line @typescript-eslint/naming-convention
+  //     updated_at: (new Date()).toString()
+  //   });
+  //   return this.categoryRepo.find();
+  // }
 }
 
 // const meta = MetadataInspector.getClassMetadata<MyClassMetaData>(

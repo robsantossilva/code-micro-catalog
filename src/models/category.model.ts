@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Entity, model, property} from '@loopback/repository';
 
+export interface SmallCategory {
+  id: string;
+  name: string;
+  is_active: boolean;
+}
+
 @model({settings: {strict: false}})
 export class Category extends Entity {
 
@@ -8,20 +14,27 @@ export class Category extends Entity {
     type: 'string',
     id: true,
     generated: false,
-    required: true,
+    required: true
   })
   id: string;
 
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      maxLength: 255,
+      minLength: 1
+    }
   })
   name: string;
 
   @property({
     type: 'string',
     required: false,
-    default: ''
+    default: null,
+    jsonSchema:{
+      nullable: true
+    }
   })
   description: string;
 

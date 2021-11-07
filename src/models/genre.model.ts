@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Entity, model, property} from '@loopback/repository';
+import {getModelSchemaRef} from '@loopback/rest';
+import {SmallCategory} from './category.model';
 
 @model()
 export class Genre extends Entity {
@@ -40,6 +42,29 @@ export class Genre extends Entity {
   })
   updated_at: string;
 
+  @property({
+    type: 'object',
+    jsonSchema:{
+      type: 'array',
+      items:{
+        type: 'object',
+        properties:{
+          id:{
+            type: "string"
+          },
+          name:{
+            type: "string"
+          },
+          is_active: {
+            type: "boolean"
+          }
+        }
+      },
+      uniqueItems: true
+    }
+  })
+  categories: SmallCategory;
+
   constructor(data?: Partial<Genre>) {
     super(data);
   }
@@ -50,3 +75,5 @@ export interface GenreRelations {
 }
 
 export type GenreWithRelations = Genre & GenreRelations;
+
+console.dir(getModelSchemaRef(Genre), {depth: 8});
